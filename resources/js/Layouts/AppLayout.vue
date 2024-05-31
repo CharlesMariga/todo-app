@@ -14,7 +14,7 @@ function onSubmit() {
 
 <template>
     <header
-        class="fixed left-0 right-0 top-0 w-full border-b border-gray-300 bg-white px-6 py-[18px]"
+        class="fixed left-0 right-0 top-0 z-10 w-full border-b border-gray-300 bg-white px-6 py-[18px]"
     >
         <div class="container flex items-center justify-between">
             <!-- Logo -->
