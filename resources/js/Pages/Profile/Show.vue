@@ -41,6 +41,7 @@ const passwordForm = useForm({
                             width="100"
                             height="100"
                         />
+                        <Input type="image" class="hidden" />
                         <button
                             class="absolute bottom-0 right-0 rounded-full border-2 border-white bg-gray-900 p-2"
                         >
@@ -64,6 +65,7 @@ const passwordForm = useForm({
                             v-model="profileForm.email"
                             class="w-full"
                             type="email"
+                            disabled
                         />
                     </FormField>
 

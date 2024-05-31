@@ -36,12 +36,15 @@ const model = defineModel();
 
 const inputVariants = cva(
     [
+        "w-full",
         "border",
         "border-gray-200",
         "bg-white",
         "text-gray-900",
         "outline-none",
         "focus:border-primary-600",
+        "disabled:bg-gray-100",
+        "disabled:opacity-75",
     ],
     {
         variants: {

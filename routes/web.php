@@ -18,7 +18,8 @@ Route::get('/get-started', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
-    Inertia::render('GetStarted');
+
+    return Inertia::render('GetStarted');
 });
 
 Route::get('/login', [SessionController::class, 'create'])->name('login');
