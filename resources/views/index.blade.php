@@ -49,7 +49,7 @@
                             and
                             transform the way you work!</p>
                         <a href="/get-started"
-                            class="mt-6 font-medium text-sm py-3 font-poppins px-4 bg-primary-600 text-white rounded-md lg:inline-block">Get
+                            class="mt-6 font-medium text-sm py-3 font-poppins px-4 bg-primary-600 inline-block text-white rounded-md lg:inline-block">Get
                             Started </a>
                     </div>
                 </div>
