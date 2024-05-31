@@ -11,8 +11,11 @@ import SvgIcon from "@/Components/SvgIcon.vue";
 import { priorities, statuses } from "@/Pages/lib/data";
 import { Status } from "@/types/Status";
 import { IconType } from "@/types/SvgIconTypes";
+import { Todo } from "@/types/todos";
 import { useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
+
+const props = defineProps<{ todo?: Todo }>();
 
 const form = useForm({
     status: "",
@@ -29,6 +32,23 @@ const loading = ref(false);
 const status = ref(statuses[0]);
 const priority = ref(priorities[0]);
 
+const editMode = computed(() => !!props.todo);
+
+watch(
+    () => props.todo,
+    (val) => {
+        status.value =
+            statuses.find((status) => status.value === val?.status) ||
+            statuses[0];
+        priority.value =
+            priorities.find((priority) => priority.value === val?.priority) ||
+            priorities[0];
+        form.title = val?.title || "";
+        form.description = val?.description || "";
+    },
+    { deep: true, immediate: true },
+);
+
 function cancel() {
     emit("close");
 }
@@ -40,14 +60,18 @@ function onSubmit() {
     form.status = status.value.value;
     form.priority = priority.value.value;
 
-    form.post("/todos", {
-        onError() {
-            loading.value = false;
-        },
-        onFinish() {
-            emit("close");
-        },
-    });
+    if (editMode.value) {
+        form.patch(`/todos/${props.todo?.id}`);
+    } else {
+        form.post("/todos", {
+            onError() {
+                loading.value = false;
+            },
+            onFinish() {
+                emit("close");
+            },
+        });
+    }
 }
 </script>
 

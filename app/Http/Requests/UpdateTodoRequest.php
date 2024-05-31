@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\Priority;
+use App\Enums\Status;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class UpdateTodoRequest extends FormRequest
 {
@@ -11,7 +14,7 @@ class UpdateTodoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +25,10 @@ class UpdateTodoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'status' => [new Enum(Status::class)],
+            'priority' => [new Enum(Priority::class)],
+            'title' => ['required', 'max:100'],
+            'description' => ['required', 'max:2000'],
         ];
     }
 }

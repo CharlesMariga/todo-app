@@ -9,6 +9,12 @@ use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
 {
+
+    public function show()
+    {
+        return Inertia::render('Profile/Show');
+    }
+
     public function create()
     {
         return Inertia::render('Auth/Register');

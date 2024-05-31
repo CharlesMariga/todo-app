@@ -25,12 +25,11 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
-    Route::get('/account', [AccountController::class, 'show'])->name('account');
-    Route::get('/profile', function () {
-        return Inertia::render('Profile/Show');
-    });
+    Route::get('/profile', [RegisteredUserController::class, 'show'])->name('profile');
 
     Route::post('/todos', [TodoController::class, 'store']);
+    Route::patch('/todos/{todo}', [TodoController::class, 'update'])->name("todos.update");
+    Route::delete('/todos/{todo}', [TodoController::class, 'destroy'])->name("todos.delete");
 });
 
 Route::get('/auth/google/redirect', [GoogleController::class, 'create']);

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Priority;
-use App\Enums\Status;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
 use App\Models\Todo;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
 
 class TodoController extends Controller
@@ -59,7 +56,9 @@ class TodoController extends Controller
      */
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
-        //
+        $todo->update($request->only('status', 'priority', 'title', 'descripton'));
+
+        return Inertia::location("/dashboard");
     }
 
     /**
@@ -67,6 +66,8 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+
+        return Inertia::location("/dashboard");
     }
 }

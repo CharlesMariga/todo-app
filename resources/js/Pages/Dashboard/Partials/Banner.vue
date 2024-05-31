@@ -2,8 +2,27 @@
 import Stat from "../../../Components/Stat.vue";
 import defaultAvatarLarge from "../../../../assets/images/default-avatar-lg.png";
 import { User } from "@/types/User";
-</script>
+import { GroupedTodos, Todo } from "@/types/todos";
+import { usePage } from "@inertiajs/vue3";
+import { computed } from "vue";
 
+const props = usePage<{ todos: Todo[]; groupedTodos: GroupedTodos }>().props;
+
+const highestPrioritiesTodo = computed(() => {
+    const todos = props?.todos?.filter((todo) => todo.priority === "highest");
+    return todos?.length || 0;
+});
+
+const mediumPrioritiesTodo = computed(() => {
+    const todos = props?.todos?.filter((todo) => todo.priority === "medium");
+    return todos?.length || 0;
+});
+
+const lowPrioritiesTodo = computed(() => {
+    const todos = props?.todos?.filter((todo) => todo.priority === "low");
+    return todos?.length || 0;
+});
+</script>
 <template>
     <div class="flex flex-col justify-between gap-3 p-6 md:flex-row lg:px-0">
         <div class="flex items-center gap-2">
@@ -28,9 +47,21 @@ import { User } from "@/types/User";
             </div>
         </div>
         <div class="flex gap-3">
-            <Stat variant="pending" value="6" highest="2" medium="3" low="1" />
-            <Stat variant="complete" value="12" />
-            <Stat variant="backlog" value="6" />
+            <Stat
+                variant="pending"
+                :value="`${($page.props.groupedTodos as GroupedTodos).pending?.length || 0}`"
+                :highest="highestPrioritiesTodo"
+                :medium="mediumPrioritiesTodo"
+                :low="lowPrioritiesTodo"
+            />
+            <Stat
+                variant="complete"
+                :value="`${($page.props?.groupedTodos as GroupedTodos).complete?.length || 0}`"
+            />
+            <Stat
+                variant="backlog"
+                :value="`${($page.props?.groupedTodos as GroupedTodos).backlog?.length || 0}`"
+            />
         </div>
     </div>
 </template>

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\Priority;
+use App\Enums\Status;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,8 +19,12 @@ class TodoFactory extends Factory
      */
     public function definition(): array
     {
-        $user = User::factory()->create();
-
-        return [];
+        return [
+            'title' => fake()->sentence(),
+            'description' => fake()->sentences(4, true),
+            'status' => fake()->randomElement([Status::BACKLOG->value, Status::COMPLETE->value, Status::PENDING->value]),
+            'priority' => fake()->randomElement([Priority::HIGH->value, Priority::HIGHEST->value, Priority::LOW->value, Priority::LOWEST->value, Priority::MEDIUM->value]),
+            'user_id' => 1
+        ];
     }
 }

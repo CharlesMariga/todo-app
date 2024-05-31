@@ -7,7 +7,7 @@ interface StatProps {
     variant?: "pending" | "complete" | "backlog";
     highest?: string | number;
     medium?: string | number;
-    low?: string;
+    low?: string | number;
 }
 
 const props = withDefaults(defineProps<StatProps>(), {
@@ -40,11 +40,8 @@ const startVariants = cva(["p-3", "rounded-[10px]", "min-w-[110px]"], {
             }}
         </h4>
         <h3 class="font-poppins text-[32px] font-bold">{{ props.value }}</h3>
-        <div
-            v-if="props.highest || props.medium || props.low"
-            class="flex gap-1"
-        >
-            <div v-if="props.highest" class="flex items-center gap-0.5">
+        <div v-if="props.variant == 'pending'" class="flex gap-1">
+            <div class="flex items-center gap-0.5">
                 <SvgIcon
                     name="double-chevron-up"
                     class="h-4 w-4 text-danger-600"
@@ -53,13 +50,13 @@ const startVariants = cva(["p-3", "rounded-[10px]", "min-w-[110px]"], {
                     {{ props.highest }}
                 </p>
             </div>
-            <div v-if="props.medium" class="flex items-center gap-0.5">
+            <div class="flex items-center gap-0.5">
                 <SvgIcon name="equal" class="h-4 w-4 text-warning-400" />
                 <p class="font-poppins text-xs font-medium">
                     {{ props.medium }}
                 </p>
             </div>
-            <div v-if="props.low" class="flex items-center gap-0.5">
+            <div class="flex items-center gap-0.5">
                 <SvgIcon name="chevron-down" class="h-4 w-4 text-info-600" />
                 <p class="font-poppins text-xs font-medium">
                     {{ props.low }}

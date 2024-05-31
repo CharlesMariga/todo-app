@@ -36,8 +36,8 @@ function handleSubmit() {
             <form class="grid gap-4" @submit.prevent="handleSubmit">
                 <FormField>
                     <Input
-                        label="Name"
-                        id="name"
+                        label="Email"
+                        id="email"
                         class="sm:min-w-[452px]"
                         v-model="form.email"
                     />
@@ -48,7 +48,7 @@ function handleSubmit() {
 
                 <FormField>
                     <Input
-                        label="Email"
+                        label="Password"
                         id="password"
                         class="sm:min-w-[452px]"
                         type="password"
