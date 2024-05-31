@@ -31,8 +31,6 @@ class TodoController extends Controller
     {
 
         Todo::create(array_merge($request->toArray(), ['user_id' => Auth::user()->id]));
-
-        Inertia::location('/dashboard');
     }
 
     /**

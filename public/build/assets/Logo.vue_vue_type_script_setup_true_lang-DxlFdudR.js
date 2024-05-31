@@ -1,1 +1,0 @@
-import{d as o,o as s,c as a,e,u as n}from"./app-w0SvkJgf.js";const t="/build/assets/logo-DqjB-_1z.png",c={href:"/"},r=["src"],p=o({__name:"Logo",setup(_){return(l,i)=>(s(),a("div",null,[e("a",c,[e("img",{src:n(t),alt:"Taskmanager logo"},null,8,r)])]))}});export{p as _};

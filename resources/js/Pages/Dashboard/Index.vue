@@ -74,7 +74,6 @@ const filteredTodos = computed(() => {
 });
 
 function editTodo(todo: TodoType) {
-    console.log("Edit this: ", todo);
     todoToEdit.value = todo;
     modalOpen.value = true;
 }

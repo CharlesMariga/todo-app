@@ -11,8 +11,8 @@ class DashboardController extends Controller
     public function show()
     {
 
-        // $todos = Todo::all()->where('user_id', "=", Auth::user()->id);
         $todos = Todo::all()->where('user_id', "=", Auth::user()->id)->map(fn ($todo) => [
+            'id' => $todo->id,
             'title' => $todo->title,
             'status' => $todo->status,
             'priority' => $todo->priority,

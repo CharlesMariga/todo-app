@@ -12,7 +12,7 @@ import { priorities, statuses } from "@/Pages/lib/data";
 import { Status } from "@/types/Status";
 import { IconType } from "@/types/SvgIconTypes";
 import { Todo } from "@/types/todos";
-import { useForm } from "@inertiajs/vue3";
+import { router, useForm } from "@inertiajs/vue3";
 import { computed, ref, watch } from "vue";
 
 const props = defineProps<{ todo?: Todo }>();
@@ -69,6 +69,7 @@ function onSubmit() {
             },
             onFinish() {
                 emit("close");
+                router.reload({ replace: true });
             },
         });
     }
