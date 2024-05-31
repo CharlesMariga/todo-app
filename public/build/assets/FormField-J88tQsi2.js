@@ -1,0 +1,1 @@
+import{o as r,c as n,j as a}from"./app-w0SvkJgf.js";const l=(e,o)=>{const t=e.__vccOpts||e;for(const[c,s]of o)t[c]=s;return t},_={},f={class:"flex flex-col gap-1"};function d(e,o){return r(),n("div",f,[a(e.$slots,"default")])}const p=l(_,[["render",d]]);export{p as F,l as _};

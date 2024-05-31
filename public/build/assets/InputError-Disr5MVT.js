@@ -1,0 +1,1 @@
+import{_ as t}from"./FormField-J88tQsi2.js";import{o as r,c as o,j as s}from"./app-w0SvkJgf.js";const c={},n={class:"text-xs text-danger-600"};function a(e,_){return r(),o("p",n,[s(e.$slots,"default")])}const p=t(c,[["render",a]]);export{p as I};
