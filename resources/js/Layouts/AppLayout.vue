@@ -5,6 +5,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import defaultAvatar from "../../assets/images/default-avatar.png";
 import { router } from "@inertiajs/vue3";
 import { User } from "@/types/User";
+import FlashMessage from "@/Components/FlashMessage.vue";
 
 function onSubmit() {
     router.post("/logout");
@@ -118,6 +119,7 @@ function onSubmit() {
 
     <!-- Main content -->
     <div v-bind="$attrs" class="mx-auto max-w-[954px] pt-[104px]">
+        <FlashMessage />
         <slot />
     </div>
 </template>

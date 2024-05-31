@@ -5,6 +5,8 @@ import Input from "@/Components/Input.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { User } from "@/types/User";
 import { Head, useForm, usePage } from "@inertiajs/vue3";
+import defaultAvatarLg from "../../../assets/images/default-avatar-lg.png";
+import SvgIcon from "@/Components/SvgIcon.vue";
 
 const props = usePage<{ user: User }>().props;
 
@@ -30,7 +32,21 @@ const passwordForm = useForm({
                 <div class="space-y-4">
                     <h3 class="font-poppins text-xl font-semibold">Profile</h3>
 
-                    <div>Image goes here</div>
+                    <div class="relative inline-block">
+                        <img
+                            :src="
+                                ($page.props.user as User).avatar ||
+                                defaultAvatarLg
+                            "
+                            width="100"
+                            height="100"
+                        />
+                        <button
+                            class="absolute bottom-0 right-0 rounded-full border-2 border-white bg-gray-900 p-2"
+                        >
+                            <SvgIcon name="camera" class="h-4 w-4 text-white" />
+                        </button>
+                    </div>
 
                     <FormField>
                         <Input

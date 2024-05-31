@@ -17,6 +17,10 @@ class RegisteredUserController extends Controller
 
     public function create()
     {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
         return Inertia::render('Auth/Register');
     }
 

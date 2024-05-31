@@ -61,15 +61,16 @@ function onSubmit() {
     form.priority = priority.value.value;
 
     if (editMode.value) {
-        form.patch(`/todos/${props.todo?.id}`);
-    } else {
-        form.post("/todos", {
-            onError() {
-                loading.value = false;
-            },
+        form.patch(`/todos/${props.todo?.id}`, {
+            preserveScroll: true,
             onFinish() {
                 emit("close");
-                router.reload({ replace: true });
+            },
+        });
+    } else {
+        form.post("/todos", {
+            onFinish() {
+                emit("close");
             },
         });
     }
@@ -189,7 +190,9 @@ function onSubmit() {
                 >
                     Cancel
                 </Button>
-                <Button type="submit" :loading="loading">Create Todo</Button>
+                <Button type="submit" :loading="loading">{{
+                    editMode ? "Update Todo" : "Create Todo"
+                }}</Button>
             </div>
         </div>
     </form>

@@ -31,6 +31,7 @@ class TodoController extends Controller
     {
 
         Todo::create(array_merge($request->toArray(), ['user_id' => Auth::user()->id]));
+        return redirect()->back()->with('message', 'Post created successfully!');
     }
 
     /**
@@ -56,7 +57,7 @@ class TodoController extends Controller
     {
         $todo->update($request->only('status', 'priority', 'title', 'descripton'));
 
-        return Inertia::location("/dashboard");
+        return redirect()->route('dashboard')->with('message', 'Post updated successfully!');
     }
 
     /**
@@ -66,6 +67,6 @@ class TodoController extends Controller
     {
         $todo->delete();
 
-        return Inertia::location("/dashboard");
+        return redirect()->route('dashboard')->with('message', 'Post deleted successfully!');
     }
 }

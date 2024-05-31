@@ -13,9 +13,6 @@ import Todo from "@/Components/Todo.vue";
 import { FilterObj, GroupedTodos, Todo as TodoType } from "@/types/todos";
 import { Status } from "@/types/Status";
 
-const props = usePage<{ todos: TodoType[]; groupedTodos: GroupedTodos }>()
-    .props;
-
 const modalOpen = ref(false);
 const groupedTodos = reactive([
     {
@@ -23,12 +20,12 @@ const groupedTodos = reactive([
         key: "pending",
     },
     {
-        title: "Complete",
-        key: "complete",
-    },
-    {
         title: "Backlog",
         key: "backlog",
+    },
+    {
+        title: "Complete",
+        key: "complete",
     },
 ]);
 const hasFilters = ref(false);
@@ -40,17 +37,13 @@ function closeModal() {
     modalOpen.value = false;
 }
 
-function getTodosByStatus(status: Status) {
-    return props.groupedTodos[status];
-}
-
 function filter({ title, status, priority }: FilterObj) {
     hasFilters.value = !!title || !!status || !!priority;
     filterObj.value = { title, status, priority };
 }
 
 const filteredTodos = computed(() => {
-    let filteredTodos = props.todos;
+    let filteredTodos = usePage().props.todos as TodoType[];
 
     if (filterObj.value?.title) {
         filteredTodos = filteredTodos.filter((todo) =>
@@ -77,6 +70,8 @@ function editTodo(todo: TodoType) {
     todoToEdit.value = todo;
     modalOpen.value = true;
 }
+
+console.log(usePage().props);
 </script>
 
 <template>
@@ -131,7 +126,9 @@ function editTodo(todo: TodoType) {
                 </DisclosureButton>
                 <DisclosurePanel as="ul" class="mt-8 md:space-y-4">
                     <Todo
-                        v-for="todo in getTodosByStatus(group.key as Status)"
+                        v-for="todo in (
+                            $page.props.groupedTodos as GroupedTodos
+                        )[group.key as Status]"
                         :todo="todo"
                         :key="todo.title"
                         @edit="editTodo"

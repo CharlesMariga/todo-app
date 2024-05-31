@@ -1,6 +1,7 @@
 export type IconType =
     | "add"
     | "back"
+    | "camera"
     | "check-circle"
     | "chevron-down-alt"
     | "chevron-down"

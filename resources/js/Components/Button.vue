@@ -92,7 +92,7 @@ const iconSizes = computed(() => {
             v-if="props.loading"
             name="loader"
             :class="iconSizes"
-            class="absolute animate-spin"
+            class="absolute animate-spin rounded-full"
         />
     </Component>
 </template>

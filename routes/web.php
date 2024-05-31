@@ -6,15 +6,20 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TodoController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     return view('index');
 })->name('home');
 
-Route::get('/get-started', fn () => Inertia::render('GetStarted'));
+Route::get('/get-started', function () {
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    Inertia::render('GetStarted');
+});
 
 Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/login', [SessionController::class, 'store']);

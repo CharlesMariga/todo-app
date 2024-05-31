@@ -3,10 +3,11 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import SvgIcon from "./SvgIcon.vue";
 import TodoTag from "./TodoTag.vue";
 import { Todo } from "@/types/todos";
-import { useForm } from "@inertiajs/vue3";
+import { router, useForm } from "@inertiajs/vue3";
 import { Status } from "@/types/Status";
 import { Todo as TodoType } from "@/types/todos";
 import { formatDate } from "@/Lib/utils";
+import { watch } from "vue";
 
 interface TodoProps {
     todo: Todo;
@@ -19,14 +20,18 @@ const emit = defineEmits<{
 
 const form = useForm({ ...props.todo });
 
-function markAsDone(status: Status) {
+function updateStatus(status: Status) {
     form.status = status;
 
-    form.patch(`/todos/${props.todo.id}`);
+    form.patch(`/todos/${props.todo.id}`, {
+        preserveScroll: true,
+    });
 }
 
 function deleteTodo() {
-    form.delete(`/todos/${props.todo.id}`);
+    form.delete(`/todos/${props.todo.id}`, {
+        preserveScroll: true,
+    });
 }
 </script>
 
@@ -62,7 +67,7 @@ function deleteTodo() {
                             v-if="todo.status !== 'complete'"
                             as="button"
                             class="flex w-full cursor-pointer items-center gap-2 px-4 py-3 font-poppins text-sm font-medium text-success-600 hover:bg-gray-100"
-                            @click="markAsDone('complete')"
+                            @click="updateStatus('complete')"
                         >
                             <SvgIcon name="check-circle" class="h-5 w-5" />
                             <p>Mark as done</p>
@@ -71,24 +76,28 @@ function deleteTodo() {
                             v-if="todo.status !== 'pending'"
                             as="button"
                             class="flex w-full cursor-pointer items-center gap-2 px-4 py-3 font-poppins text-sm font-medium text-gray-900 hover:bg-gray-100"
-                            @click="markAsDone('pending')"
+                            @click="updateStatus('pending')"
                         >
                             <SvgIcon
                                 name="clock-fast-forward"
                                 class="h-5 w-5"
                             />
-                            <p>Mark to pending</p>
+                            <p>Move to pending</p>
                         </MenuItem>
                         <MenuItem
-                            v-if="todo.status !== 'backlog'"
+                            v-if="
+                                todo.status !== 'backlog' &&
+                                todo.status !== 'complete'
+                            "
                             as="button"
                             class="flex w-full cursor-pointer items-center gap-2 px-4 py-3 font-poppins text-sm font-medium text-gray-900 hover:bg-gray-100"
-                            @click="markAsDone('backlog')"
+                            @click="updateStatus('backlog')"
                         >
                             <SvgIcon name="back" class="h-5 w-5" />
                             <p>Move to backlog</p>
                         </MenuItem>
                         <MenuItem
+                            v-if="todo.status !== 'complete'"
                             as="button"
                             class="flex w-full cursor-pointer items-center gap-2 px-4 py-3 font-poppins text-sm font-medium text-gray-900 hover:bg-gray-100"
                             @click="emit('edit', props.todo)"
