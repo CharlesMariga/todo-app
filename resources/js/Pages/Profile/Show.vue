@@ -7,8 +7,11 @@ import { User } from "@/types/User";
 import { Head, useForm, usePage } from "@inertiajs/vue3";
 import defaultAvatarLg from "../../../assets/images/default-avatar-lg.png";
 import SvgIcon from "@/Components/SvgIcon.vue";
+import { ref } from "vue";
 
 const props = usePage<{ user: User }>().props;
+
+const fileInput = ref(null);
 
 const profileForm = useForm({
     name: props.user.name || "",
@@ -20,6 +23,13 @@ const passwordForm = useForm({
     newPassword: "",
     confirmPassword: "",
 });
+
+function openFileInput() {
+    if (fileInput.value) {
+        console.log("VAlu", fileInput.value);
+        (fileInput.value as HTMLInputElement).click();
+    }
+}
 </script>
 
 <template>
@@ -41,8 +51,9 @@ const passwordForm = useForm({
                             width="100"
                             height="100"
                         />
-                        <Input type="image" class="hidden" />
+                        <input ref="fileInput" type="file" class="hidden" />
                         <button
+                            @click="openFileInput"
                             class="absolute bottom-0 right-0 rounded-full border-2 border-white bg-gray-900 p-2"
                         >
                             <SvgIcon name="camera" class="h-4 w-4 text-white" />

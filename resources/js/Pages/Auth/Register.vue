@@ -27,7 +27,7 @@ function handleSubmit() {
 <template>
     <Head title="Register" />
 
-    <AuthLayout class="justify-center">
+    <AuthLayout class="sm:justify-center">
         <AuthenticationCard>
             <template #title> Register using your email </template>
 

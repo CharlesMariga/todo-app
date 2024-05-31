@@ -29,7 +29,7 @@ function handleSubmit() {
 <template>
     <Head title="Login" />
 
-    <AuthLayout class="justify-center">
+    <AuthLayout class="sm:justify-center">
         <AuthenticationCard>
             <template #title> Login with your email </template>
 

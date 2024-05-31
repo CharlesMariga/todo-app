@@ -9,7 +9,7 @@ import Logo from "@/Components/Logo.vue";
         <div class="flex flex-1 flex-col">
             <div v-bind="$attrs" class="flex flex-1 flex-col">
                 <div
-                    class="mx-auto max-w-[500px] p-6 sm:rounded-[10px] sm:border sm:border-gray-300"
+                    class="mx-auto w-full p-6 sm:max-w-[500px] sm:rounded-[10px] sm:border sm:border-gray-300"
                 >
                     <slot />
                 </div>
