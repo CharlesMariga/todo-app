@@ -59,6 +59,7 @@ function deleteTodo() {
                         class="absolute right-0 z-10 mt-2 w-[250px] origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     >
                         <MenuItem
+                            v-if="todo.status !== 'complete'"
                             as="button"
                             class="flex w-full cursor-pointer items-center gap-2 px-4 py-3 font-poppins text-sm font-medium text-success-600 hover:bg-gray-100"
                             @click="markAsDone('complete')"
@@ -66,8 +67,20 @@ function deleteTodo() {
                             <SvgIcon name="check-circle" class="h-5 w-5" />
                             <p>Mark as done</p>
                         </MenuItem>
-
                         <MenuItem
+                            v-if="todo.status !== 'pending'"
+                            as="button"
+                            class="flex w-full cursor-pointer items-center gap-2 px-4 py-3 font-poppins text-sm font-medium text-gray-900 hover:bg-gray-100"
+                            @click="markAsDone('pending')"
+                        >
+                            <SvgIcon
+                                name="clock-fast-forward"
+                                class="h-5 w-5"
+                            />
+                            <p>Mark to pending</p>
+                        </MenuItem>
+                        <MenuItem
+                            v-if="todo.status !== 'backlog'"
                             as="button"
                             class="flex w-full cursor-pointer items-center gap-2 px-4 py-3 font-poppins text-sm font-medium text-gray-900 hover:bg-gray-100"
                             @click="markAsDone('backlog')"

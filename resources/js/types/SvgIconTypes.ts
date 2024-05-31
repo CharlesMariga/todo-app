@@ -4,6 +4,8 @@ export type IconType =
     | "check-circle"
     | "chevron-down-alt"
     | "chevron-down"
+    | "chevron-up"
+    | "clock-fast-forward"
     | "cross"
     | "double-chevron-up"
     | "ellipsis"
