@@ -118,7 +118,7 @@ function onSubmit() {
     </header>
 
     <!-- Main content -->
-    <div v-bind="$attrs" class="mx-auto max-w-[954px] pt-[104px]">
+    <div v-bind="$attrs" class="mx-auto max-w-[954px] pt-[64px]">
         <FlashMessage />
         <slot />
     </div>
