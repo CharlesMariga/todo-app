@@ -83,7 +83,7 @@ function onSubmit() {
                                     <p
                                         class="text-wrap font-inter text-xs font-normal text-gray-500"
                                     >
-                                        {{ ($page.props.user as User).name }}
+                                        {{ ($page.props.user as User).email }}
                                     </p>
                                 </div>
                             </MenuItem>

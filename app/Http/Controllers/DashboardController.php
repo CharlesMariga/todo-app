@@ -17,6 +17,7 @@ class DashboardController extends Controller
             'status' => $todo->status,
             'priority' => $todo->priority,
             'description' => $todo->description,
+            'created_at' => $todo->created_at
         ]);
 
         $groupedTodos = $todos->groupBy('status');

@@ -22,7 +22,7 @@ npm install
 Update the environment variables:
 
 ```bash
-cp env.example .env
+cp .env.example .env
 ```
 
 Update the following fields:
@@ -45,7 +45,16 @@ Run the following commands to create the relevant tables and get up and running:
 ```bash
 php artisan migrate --seed
 
-php artisan run serve
+php artisan key:generate
+
+php artisan serve
 
 npm run dev
+```
+
+## Test user details
+
+```bash
+Email: johndoe@example.com
+Password: password
 ```
