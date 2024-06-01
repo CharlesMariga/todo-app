@@ -70,8 +70,6 @@ function editTodo(todo: TodoType) {
     todoToEdit.value = todo;
     modalOpen.value = true;
 }
-
-console.log(usePage().props);
 </script>
 
 <template>

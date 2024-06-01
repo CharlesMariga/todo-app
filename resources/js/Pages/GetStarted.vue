@@ -28,7 +28,12 @@ import AuthLayout from "../Layouts/AuthLayout.vue";
                 >
                     Continue with Google
                 </Button>
-                <Button variant="secondary" icon-leading="facebook">
+                <Button
+                    variant="secondary"
+                    icon-leading="facebook"
+                    class="w-full"
+                    href="/auth/facebook/redirect"
+                >
                     Continue with Facebook
                 </Button>
                 <Button href="/register">Continue with Email</Button>

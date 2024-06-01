@@ -4,32 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
 
-class GoogleController extends Controller
+
+class FacebookController extends Controller
 {
     public function create()
     {
-        return Inertia::location(Socialite::driver('google')->redirect());
+        return Inertia::location(Socialite::driver('facebook')->redirect());
     }
 
     public function store()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $facebookUser = Socialite::driver('facebook')->user();
         } catch (Exception) {
             return Inertia::location('/get-started');
         }
 
+
         // Find the user with that email
-        $user = User::query()->where("email", "=", $googleUser->email)->get()->first();
+        $user = User::query()->where("email", "=", $facebookUser->email)->get()->first();
 
         if ($user) {
             $user->update([
-                'google_id' => $googleUser->id
+                'facebook_id' => $facebookUser->id
             ]);
 
             Auth::login($user);
@@ -38,10 +41,10 @@ class GoogleController extends Controller
             return redirect('/dashboard');
         } else {
             $createdUser = User::create([
-                'name' => $googleUser->name,
-                'avatar' => $googleUser->avatar,
+                'name' => $facebookUser->name,
+                'avatar' => $facebookUser->avatar,
                 'password' => Str::password(12),
-                'google_id' => $googleUser->id
+                'facebook_id' => $facebookUser->id
             ]);
 
             Auth::login($createdUser);

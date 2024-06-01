@@ -27,6 +27,7 @@ const props = usePage<{ user: User }>().props;
                 icon-leading="facebook"
                 :disabled="!!props.user.facebook_id"
                 class="w-full"
+                href="/auth/facebook/redirect"
             >
                 {{ props.user.facebook_id ? "Connected" : "Connect" }}
                 with Facebook

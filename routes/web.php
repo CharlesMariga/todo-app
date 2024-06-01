@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SessionController;
@@ -45,3 +46,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('/auth/google/redirect', [GoogleController::class, 'create']);
 Route::get('/auth/google/callback', [GoogleController::class, 'store']);
+
+Route::get('/auth/facebook/redirect', [FacebookController::class, 'create']);
+Route::get('/auth/facebook/callback', [FacebookController::class, 'store']);
