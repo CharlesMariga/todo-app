@@ -52,5 +52,9 @@ export function formatDate(date: string) {
 }
 
 export function imagePath(path: string) {
-    return path ? `/storage/${path}` : "";
+    if (!path) return "";
+
+    if (path.includes("https") || path.includes("http")) return path;
+
+    return `/storage/${path}`;
 }
