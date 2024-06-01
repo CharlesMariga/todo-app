@@ -78,6 +78,7 @@ function updatePassword() {
                     v-model="form.password_confirmation"
                     class="w-full"
                     type="password"
+                    :disabled="loggedInWithOuth"
                 />
                 <InputError v-if="$page.props.errors.password_confirmation">
                     {{ $page.props.errors.password_confirmation }}

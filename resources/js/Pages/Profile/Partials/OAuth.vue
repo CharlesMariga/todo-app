@@ -28,7 +28,7 @@ const props = usePage<{ user: User }>().props;
                 :disabled="!!props.user.facebook_id"
                 class="w-full"
             >
-                {{ props.user.google_id ? "Connected" : "Connect" }}
+                {{ props.user.facebook_id ? "Connected" : "Connect" }}
                 with Facebook
             </Button>
         </div>

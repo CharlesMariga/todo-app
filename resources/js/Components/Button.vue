@@ -36,6 +36,7 @@ const buttonVariants = cva(
         "items-center",
         "justify-center",
         "disabled:opacity-75",
+        props.disabled && "opacity-75",
     ],
     {
         variants: {
