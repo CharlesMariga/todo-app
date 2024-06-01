@@ -50,3 +50,7 @@ export function formatDate(date: string) {
     // Format the date to the desired string format
     return `${month} ${day}${getDaySuffix(day)} ${year}`;
 }
+
+export function imagePath(path: string) {
+    return path ? `/storage/${path}` : "";
+}

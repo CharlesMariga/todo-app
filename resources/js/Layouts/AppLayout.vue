@@ -6,6 +6,7 @@ import defaultAvatar from "../../assets/images/default-avatar.png";
 import { router } from "@inertiajs/vue3";
 import { User } from "@/types/User";
 import FlashMessage from "@/Components/FlashMessage.vue";
+import { imagePath } from "@/Lib/utils";
 
 function onSubmit() {
     router.post("/logout");
@@ -14,7 +15,7 @@ function onSubmit() {
 
 <template>
     <header
-        class="fixed left-0 right-0 top-0 z-10 w-full border-b border-gray-300 bg-white px-6 py-[18px]"
+        class="fixed left-0 right-0 top-0 z-50 w-full border-b border-gray-300 bg-white px-6 py-[18px]"
     >
         <div class="container flex items-center justify-between">
             <!-- Logo -->
@@ -26,16 +27,17 @@ function onSubmit() {
                     <div>
                         <MenuButton class="flex items-center gap-1">
                             <span class="sr-only">Open user menu</span>
-                            <div>
+                            <div class="h-8 w-8">
                                 <img
                                     :src="
-                                        ($page.props.user as User).avatar ||
-                                        defaultAvatar
+                                        imagePath(
+                                            ($page.props.user as User).avatar,
+                                        ) || defaultAvatar
                                     "
                                     height="32"
                                     width="32"
                                     :alt="`${($page.props.user as User).name} avatar photo`"
-                                    class="rounded-full"
+                                    class="h-full w-full rounded-full object-cover"
                                 />
                             </div>
                             <p class="font-poppins text-sm font-medium">
@@ -66,13 +68,15 @@ function onSubmit() {
                                 <div class="h-10 w-10">
                                     <img
                                         :src="
-                                            ($page.props.user as User).avatar ||
-                                            defaultAvatar
+                                            imagePath(
+                                                ($page.props.user as User)
+                                                    .avatar,
+                                            ) || defaultAvatar
                                         "
                                         alt="Default profile photo"
                                         height="40"
                                         width="40"
-                                        class="h-10 w-10 rounded-full"
+                                        class="h-10 w-10 rounded-full object-cover"
                                     />
                                 </div>
                                 <div class="flex flex-col gap-1">

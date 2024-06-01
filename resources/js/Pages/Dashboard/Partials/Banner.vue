@@ -5,21 +5,31 @@ import { User } from "@/types/User";
 import { GroupedTodos, Todo } from "@/types/todos";
 import { usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
-
-const props = usePage<{ todos: Todo[]; groupedTodos: GroupedTodos }>().props;
+import { PageProps } from "@/types/page";
+import { imagePath } from "@/Lib/utils";
 
 const highestPrioritiesTodo = computed(() => {
-    const todos = props?.todos?.filter((todo) => todo.priority === "highest");
+    const todos = usePage<
+        Required<PageProps>
+    >().props?.groupedTodos.pending?.filter(
+        (todo) => todo.priority === "highest",
+    );
     return todos?.length || 0;
 });
 
 const mediumPrioritiesTodo = computed(() => {
-    const todos = props?.todos?.filter((todo) => todo.priority === "medium");
+    const todos = usePage<
+        Required<PageProps>
+    >().props?.groupedTodos.pending?.filter(
+        (todo) => todo.priority === "medium",
+    );
     return todos?.length || 0;
 });
 
 const lowPrioritiesTodo = computed(() => {
-    const todos = props?.todos?.filter((todo) => todo.priority === "low");
+    const todos = usePage<
+        Required<PageProps>
+    >().props?.groupedTodos.pending?.filter((todo) => todo.priority === "low");
     return todos?.length || 0;
 });
 </script>
@@ -29,12 +39,13 @@ const lowPrioritiesTodo = computed(() => {
             <div class="h-[72px] w-[72px]">
                 <img
                     :src="
-                        ($page.props.user as User).avatar || defaultAvatarLarge
+                        imagePath(($page.props.user as User).avatar) ||
+                        defaultAvatarLarge
                     "
                     :alt="`${($page.props.user as User).name} avatar photo`"
-                    height="40"
-                    width="40"
-                    class="h-[72px] w-[72px] rounded-full"
+                    height="72"
+                    width="72"
+                    class="h-full w-full rounded-full object-cover"
                 />
             </div>
             <div class="space-y-1">

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 
-class RegisteredUserController extends Controller
+class UserController extends Controller
 {
 
     public function show()
@@ -22,6 +24,32 @@ class RegisteredUserController extends Controller
         }
 
         return Inertia::render('Auth/Register');
+    }
+
+    public function update(UpdateUserRequest $request, User $user)
+    {
+
+        if (!$user->is(Auth::user())) {
+            return abort(403, 'Unauthorized action.');
+        }
+
+
+        if ($request->hasFile('avatar')) {
+            $link = $request->file('avatar')->store('image', 'public');
+
+            $user->update(['avatar' => $link]);
+
+            return redirect()->route('profile')->with('message', 'Profile picture updated successfully!');
+        }
+
+        if ($request->has('name')) {
+            $user->name = $request->name;
+            $user->save();
+
+            return redirect()->route('profile')->with('message', 'Profile details updated successfully!');
+        }
+
+        return redirect()->back()->with('error', 'Update failed!');
     }
 
     public function store()
