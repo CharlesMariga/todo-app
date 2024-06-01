@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -33,11 +34,20 @@ class UserController extends Controller
             return abort(403, 'Unauthorized action.');
         }
 
-
         if ($request->hasFile('avatar')) {
-            $link = $request->file('avatar')->store('image', 'public');
+            $file = $request->file('avatar');
 
-            $user->update(['avatar' => $link]);
+            $file_extension = $file->getClientOriginalExtension();
+
+            $uuid = Str::uuid()->toString();
+
+            $file_name = "{$uuid}.{$file_extension}";
+
+            $link = "public/{$file_name}";
+
+            Storage::disk('local')->put("{$link}", file_get_contents($file));
+
+            $user->update(['avatar' => $file_name]);
 
             return redirect()->route('profile')->with('message', 'Profile picture updated successfully!');
         }
